@@ -11,9 +11,9 @@ SCC <- readRDS("Source_Classification_Code.rds")
 #coerce to character
 SCC$EI.Sector <- as.character(SCC$EI.Sector)
 
-#Use regular expression to get what I believe are motor vehicles. There will be differences of 
-#opinion but this avoids getting offroad machinery 
-SCC.car <- SCC[grep("Mobile.*On-Road", SCC$EI.Sector),] 
+#Use regular expression to get what I believe are motor vehicles. There will be differences of
+#opinion but this avoids getting offroad machinery
+SCC.car <- SCC[grep("Mobile.*On-Road", SCC$EI.Sector),]
 
 #coerce to character, get the correct SCC codes, and then subset based on Baltimore City and proper codes
 SCC.car$SCC <- as.character(SCC.car$SCC)
@@ -39,11 +39,11 @@ if(require(ggplot2)) {
   }
 }
 
-#Construct plot. Note use of stat = identity to use Total values as opposed to frequency count. 
-#Also note I've added the total values for ease. 
+#Construct plot. Note use of stat = identity to use Total values as opposed to frequency count.
+#Also note I've added the total values for ease.
 png(filename = "plot5.png")
-myplot <- ggplot(result, aes(x = Year, y = Total)) + 
-  geom_bar(stat = "identity", aes(fill = result$Year))  + 
+myplot <- ggplot(result, aes(x = Year, y = Total)) +
+  geom_bar(stat = "identity", aes(fill = result$Year)) +
   geom_text(aes(label = round(Total, 2), size = 1, hjust = 0.5, vjust = 2)) +
   ggtitle(expression("Emissions from Motor Vehicles in Baltimore from 1999 to 2008")) +
   xlab(expression("Year")) + ylab(expression("PM2.5 Emissions from Motor Vehicles (tons)"))
