@@ -16,13 +16,15 @@ SCC$Short.Name <- as.character(SCC$Short.Name)
 #grep based on "Fuel Comb" and "Coal" to get values and then combine them (removing duplicates) to
 #produce one final data frame. There are many different opinions on what to consider coal combustion sources, 
 #I chose to be as inclusive as possible by filtering all sources of combustion and coal. This will include some 
-#sources such as coal syngas and liquified coal that others may not include. Note the trend does not change depending
+#sources such as coal syngas and liquified coal that others may not include. This will
+# also include 2 entries of lignite under Short.Name but no mention of "coal" under
+# EI.Sector (lignite is brown coal). Note the trend does not change depending
 #on how you filter for coal combustion. 
 SCC.comb <- SCC[grep("Fuel Comb", SCC$EI.Sector),] #530 observations
 SCC.coal <- SCC.comb[grep("Coal", SCC.comb$Short.Name),] #91 observations
 SCC.coal2 <- SCC[grep("Coal", SCC$EI.Sector),] #99 observations
 res <- rbind(SCC.coal, SCC.coal2)
-res <- unique(res)
+res <- unique(res) ##103 observations
 
 #use the SCC values obtained above to get the NEI data that are from coal combustion sources
 res$SCC <- as.character(res$SCC)
@@ -50,7 +52,7 @@ if(require(ggplot2)) {
 #I've also included the actual values as a geom_text variable to make things easier to see.
 png(filename = "plot4.png")
 myplot <- ggplot(result, aes(x = Year, y = Total)) + 
-  geom_bar(stat = "identity", aes(fill = result$Year)) + 
+  geom_bar(stat = "identity", aes(fill = Year)) + 
   geom_text(aes(label = round(Total, 2), hjust = 0.5, vjust = 2)) +
   ggtitle(expression("Emissions from Coal Combustion Sources in US from 1999 to 2008")) +
   xlab(expression("Year")) + ylab(expression("PM2.5 Emissions from Coal Combustion (tons)"))

@@ -4,6 +4,7 @@
 # requires the NEI and SCC data sets unzipped and loaded into the working directory
 # (zip files can be found https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2FNEI_data.zip).
 # The code then outputs a png file into the working directory with the result.
+# Note this uses the base plotting system
 
 #read the files
 NEI <- readRDS("summarySCC_PM25.rds")
@@ -20,7 +21,7 @@ png(filename = "plot2.png")
 #Produce plot with Year on x axis and total PM2.5 values on y axis. A line has been provided
 #to show the "trend" although the totals are discrete values.
 myplot <- barplot(height = result$x, names.arg = result$Group.1, 
-                  col = "light blue", xlab = "Year", ylab = "Total Pm2.5 Emissions (ton)", 
+                  col = "light blue", xlab = "Year", ylab = "Total Pm2.5 Emissions (tons)", 
                   main = "Total PM2.5 Emissions from all Sources in Baltimore City by Year")
 lines(myplot, y = result$x, lwd = 2, col = "red")
 text(myplot, result$x-1000, labels=round(result$x, 2))

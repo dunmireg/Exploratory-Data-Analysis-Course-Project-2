@@ -4,6 +4,7 @@
 # requires the NEI and SCC data sets unzipped and loaded into the working directory
 # (zip files can be found https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2FNEI_data.zip).
 # The code then outputs a png file into the working directory with the result.
+# Note this uses ggplot2
 
 #read in files
 NEI <- readRDS("summarySCC_PM25.rds")
@@ -34,7 +35,7 @@ result <- aggregate(Emissions ~ year + type, data = sub, FUN = sum)
 #Uses type as a facet to separate different types
 png(filename = "plot3.png")
 myplot <- ggplot(result, aes(x = year, y = Emissions, fill = year)) + geom_bar(stat = "identity") + facet_wrap(~type) +
-  ggtitle(expression("Total Emissions PM2.5 in Baltimore by Type")) + ylab(expression("Emissions PM2.5 (tons)")) + 
+  ggtitle(expression("Total PM2.5 Emissions in Baltimore by Type")) + ylab(expression("Emissions PM2.5 (tons)")) + 
   xlab(expression("Year"))
 print(myplot)
 dev.off()

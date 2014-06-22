@@ -32,7 +32,7 @@ result.LA <- aggregate(NEI.LA.MV$Emissions, by = list(NEI.LA.MV$year), FUN = sum
 #to 1999 levels (eg 1999 = 1 then the next year shows the change from 1999). This is normalized
 #to be able to compare between Baltimore and LA without worrying about scale
 colnames(result.Bmore) <- c("Year", "Total")
-result.Bmore$City <- paste(rep("BA", 4))
+result.Bmore$City <- paste(rep("BMORE", 4))
 result.Bmore$Normal <- numeric(length = 4)
 for (i in 1:length(result.Bmore$Normal)) {result.Bmore[i,4] <- result.Bmore[i,2]/result.Bmore[1,2]}
 
@@ -79,7 +79,7 @@ if(require(gridExtra)) {
 #plot with absolute numbers shows comparisons while the second plot shows relative changes from 1999. 
 #Please also note this plot is significantly larger than the previous plots to accomodate both subplots. 
 #Note also there will be an error message "ymax not defined" this is not a problem
-png(filename = "plot6.png", height = 1000, width = 2000)
+png(filename = "plot6.png", height = 900, width = 1500)
 
 #This plot displays the absolute values of Emissions from Baltimore and LA with values added
 myplot <- ggplot(result, aes(x = Year, y = Total, fill = City)) + 

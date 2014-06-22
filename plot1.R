@@ -4,6 +4,7 @@
 # requires the NEI and SCC data sets unzipped and loaded into the working directory
 # (zip files can be found https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2FNEI_data.zip).
 # The code then outputs a png file into the working directory with the result.
+# Note this uses the base plotting system.
 
 #Read in data from working directory
 NEI <- readRDS("summarySCC_PM25.rds")
@@ -19,7 +20,7 @@ png(filename = "plot1.png")
 #I've included a line just to show the general "trend" although these are obviously discrete values for 
 #total Emissions. I've also included the actual discrete values
 myplot <- barplot(height = result$x, names.arg = result$Group.1, 
-    col = "light blue", xlab = "Year", ylab = "Total Pm2.5 Emissions (ton)", 
+    col = "light blue", xlab = "Year", ylab = "Total Pm2.5 Emissions (tons)", 
     main = "Total Pm2.5 Emissions in United States by Year")
 lines(myplot, y = result$x, lwd = 2, col = "red")
 text(myplot, result$x-1500000, labels=round(result$x, 2))
